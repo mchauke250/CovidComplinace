@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2021 at 02:04 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.21
+-- Generation Time: Jul 29, 2021 at 12:15 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -40,10 +41,13 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `cov_test` (
   `test_code` int(11) NOT NULL,
-  `hots_code` int(11) NOT NULL,
-  `latest_results` varchar(255) NOT NULL,
-  `history_results` varchar(255) NOT NULL,
-  `tested` char(1) NOT NULL
+  `lat_results` varchar(255) NOT NULL,
+  `his_results` varchar(255) NOT NULL,
+  `tested` tinyint(1) NOT NULL,
+  `staff_num` int(11) NOT NULL,
+  `stud_num` int(11) NOT NULL,
+  `tested_date` date NOT NULL,
+  `symptoms` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -55,7 +59,7 @@ CREATE TABLE `cov_test` (
 CREATE TABLE `dashboard` (
   `board_code` int(11) NOT NULL,
   `admin_num` int(11) NOT NULL,
-  `message` varchar(1000) NOT NULL,
+  `message` varchar(500) NOT NULL,
   `notice` varchar(255) NOT NULL,
   `alert` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -80,8 +84,8 @@ CREATE TABLE `hotspot` (
 
 CREATE TABLE `location` (
   `loc_code` int(11) NOT NULL,
-  `stud_id` int(11) NOT NULL,
-  `staff_num` int(11) NOT NULL,
+  `test_code` int(11) NOT NULL,
+  `clinic` varchar(255) NOT NULL,
   `location_pro` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -94,8 +98,8 @@ CREATE TABLE `location` (
 CREATE TABLE `screen` (
   `screen_id` int(11) NOT NULL,
   `loc_code` int(11) NOT NULL,
-  `temp` float(2,2) NOT NULL,
-  `record` varchar(255) NOT NULL
+  `temp` float NOT NULL,
+  `records` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -107,7 +111,7 @@ CREATE TABLE `screen` (
 CREATE TABLE `staff` (
   `staff_num` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `staff_email` varchar(255) NOT NULL
+  `sta_email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -119,7 +123,7 @@ CREATE TABLE `staff` (
 CREATE TABLE `student` (
   `stud_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `stud_email` varchar(255) NOT NULL
+  `stu_email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -129,12 +133,13 @@ CREATE TABLE `student` (
 --
 
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `ID_num` int(15) NOT NULL,
+  `Name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `gender` varchar(6) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `gender` varchar(255) NOT NULL,
+  `contact` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -193,67 +198,10 @@ ALTER TABLE `student`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `admin_num` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cov_test`
---
-ALTER TABLE `cov_test`
-  MODIFY `test_code` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `dashboard`
---
-ALTER TABLE `dashboard`
-  MODIFY `board_code` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `hotspot`
---
-ALTER TABLE `hotspot`
-  MODIFY `hots_code` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `location`
---
-ALTER TABLE `location`
-  MODIFY `loc_code` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `screen`
---
-ALTER TABLE `screen`
-  MODIFY `screen_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `staff`
---
-ALTER TABLE `staff`
-  MODIFY `staff_num` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `student`
---
-ALTER TABLE `student`
-  MODIFY `stud_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  ADD PRIMARY KEY (`ID_num`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
